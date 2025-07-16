@@ -1,6 +1,6 @@
 name: intl_arb_to_tsv
 description: A CLI tool to convert .arb files to TSV and copy to clipboard
-version: 1.0.0
+version: 1.0.1
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
