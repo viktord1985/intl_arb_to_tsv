@@ -10,4 +10,4 @@ dependencies:
 
 # ✅ Это делает утилиту доступной как CLI команда
 executables:
-  intl_to_tsv: bin/intl_to_tsv.dart
+  intl_to_tsv: intl_to_tsv.dart
