@@ -2,16 +2,24 @@ import 'dart:convert';
 import 'dart:io';
 
 Future<void> copyToClipboard(String text) async {
+  late Process process;
+
   if (Platform.isMacOS) {
-    await Process.run('pbcopy', [], stdin: text);
+    process = await Process.start('pbcopy', []);
   } else if (Platform.isLinux) {
-    await Process.run('xclip', ['-selection', 'clipboard'], stdin: text);
+    process = await Process.start('xclip', ['-selection', 'clipboard']);
   } else if (Platform.isWindows) {
-    await Process.run('clip', [], stdin: text);
+    process = await Process.start('cmd', ['/c', 'clip']);
   } else {
     print('⚠️ Clipboard not supported on this platform');
+    return;
   }
+
+  process.stdin.write(text);
+  await process.stdin.close();
+  await process.exitCode;
 }
+
 
 Future<void> main(List<String> args) async {
   final fileName = args.isNotEmpty ? args[0] : 'lib/l10n/intl_en.arb';
